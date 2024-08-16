@@ -1,8 +1,8 @@
 package com.example.techinterview.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "lokasi")
@@ -21,6 +21,9 @@ public class Lokasi {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @ManyToMany(mappedBy = "lokasi")
+    private List<Proyek> proyek;
 
     // Getters and Setters
     public Long getId() {
@@ -69,5 +72,13 @@ public class Lokasi {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Proyek> getProyek() {
+        return proyek;
+    }
+
+    public void setProyek(List<Proyek> proyek) {
+        this.proyek = proyek;
     }
 }

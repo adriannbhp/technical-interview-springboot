@@ -5,6 +5,7 @@ import com.example.techinterview.repositories.ProyekRepository;
 import com.example.techinterview.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class ProyekController {
     private ProyekRepository proyekRepository;
 
     @PostMapping
+    @Transactional
     public Proyek createProyek(@RequestBody Proyek proyek) {
         return proyekRepository.save(proyek);
     }
@@ -27,6 +29,7 @@ public class ProyekController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<Proyek> updateProyek(@PathVariable Long id, @RequestBody Proyek proyekDetails) {
         Proyek proyek = proyekRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyek not found for this id :: " + id));
@@ -43,6 +46,7 @@ public class ProyekController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<Void> deleteProyek(@PathVariable Long id) {
         Proyek proyek = proyekRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyek not found for this id :: " + id));
